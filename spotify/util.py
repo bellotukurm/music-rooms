@@ -56,10 +56,13 @@ def refresh_spotify_token(session_id):
     update_or_create_user_tokens(session_id, access_token, token_type, expires_in, refresh_token)
 
 def execute_spotify_api_request(session_id, endpoint, post_=False, put_=False):
+    print("we in")
     tokens = get_user_tokens(session_id)
     headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + tokens.access_token}
 
     if post_:
+        print(BASE_URL + endpoint)
+        print(headers)
         post(BASE_URL + endpoint, headers=headers)
     if put_:
         put(BASE_URL + endpoint, headers=headers)
@@ -78,3 +81,7 @@ def play_song(session_id):
 def pause_song(session_id):
     print("NOTE: Spotify Premium Required to Pause or Play")
     return execute_spotify_api_request(session_id, "player/pause", put_=True)
+
+def skip_song(session_id):
+    print("NOTE: Spotify Premium Required to Pause or Play")
+    return execute_spotify_api_request(session_id, "player/next", post_=True)

@@ -15,6 +15,15 @@ export default class MusicPlayer extends Component {
         super(props);
     }
 
+    skipSong() {
+        console.log("NOTE: Spotify Premium Required to Pause or Play")
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json" }
+        };
+        fetch('/spotify/skip', requestOptions)
+    }
+
     pauseSong() {
         console.log("NOTE: Spotify Premium Required to Pause or Play")
         const requestOptions = {
@@ -54,8 +63,8 @@ export default class MusicPlayer extends Component {
                         }}>
                             {this.props.is_playing ? <PauseIcon /> : <PlayArrowIcon />}
                         </IconButton>
-                        <IconButton>
-                            <SkipNextIcon />
+                        <IconButton onClick={() => this.skipSong()}>
+                            {this.props.votes} /{" "} {this.props.votes_required} <SkipNextIcon />
                         </IconButton>
                         <Typography color="textSecondary" variant="subtitle1">
                             {songProgress}

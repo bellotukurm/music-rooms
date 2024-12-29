@@ -75,12 +75,13 @@ export default class Room extends Component {
       if (!response.ok) {
         return {};
       } else {
+        // console.log(response);
         return response.json();
       }
     })
     .then((data) => {
       this.setState({ song: data });
-      console.log(data);
+      // console.log(data);
     });
   }
 
